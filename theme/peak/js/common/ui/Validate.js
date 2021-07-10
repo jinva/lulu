@@ -1280,7 +1280,7 @@
                     // 粘贴内容
                     var paste = '';
                     // 剪切板对象可以获取
-                    if (!clipboardData) {
+                    if (!clipboardData || ele.disabled == true) {
                         return;
                     }
                     // 获取选中的文本内容
@@ -1316,6 +1316,8 @@
                         // 插入
                         this.value = paste;
                     }
+                    
+                    $(this).trigger('input');
                 });
             }
         });
@@ -1441,7 +1443,7 @@
             // 出错
             target.addClass('error');
         } else if (ele.type == 'radio' && ele.name) {
-            this.el.form.find('input[type=radio][name=' + ele.name + ']').each(function() {
+            this.el.form.find('input[type=radio][name="' + ele.name + '"]').each(function() {
                 $.validate.getTarget($(this)).removeClass('error').removeAttr('aria-label');
             });
         } else {

@@ -1,18 +1,19 @@
 {
-  "name": "gulps",
-  "version": "3.9.1",
-  "description": "LuLu UI",
-  "main": "mockup/index.php",
-  "directories": {
-    "doc": "mockup"
+  "name": "lu2",
+  "version": "2021.07.09",
+  "description": "Simple and flexible UI component library based on native HTML and JavaScript",
+  "main": "./theme",
+  "directories": {},
+  "author": "YUX-FE",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:yued-fe/lulu.git"
   },
-  "author": "zhangxinxu",
-  "license": "ISC",
-  "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-clean": "^0.3.2",
-    "gulp-sass": "^3.1.0",
-    "gulp-ruby-sass": "^2.1.1",
-    "gulp-util": "^3.0.7"
-  }
+  "keywords": [
+    "lulu",
+    "LuLu UI"
+  ],
+  "license": "MIT",
+  "devDependencies": {},
+  "dependencies": {}
 }

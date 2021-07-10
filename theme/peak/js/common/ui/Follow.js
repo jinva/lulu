@@ -55,18 +55,47 @@
             var triW = 0;
             var tarH = target.data('height');
             var tarW = target.data('width');
-            var st = $(window).scrollTop();
-            var sl = $(window).scrollLeft();
-
-            var offX = parseInt(params.offsets.x, 10) || 0;
-            var offY = parseInt(params.offsets.y, 10) || 0;
-
             //缓存目标对象高度，宽度，提高鼠标跟随时显示性能，元素隐藏时缓存清除
             if (!tarH) {
                 tarH = target.outerHeight();
             }
             if (!tarW) {
                 tarW = target.outerWidth();
+            }
+
+            var st = $(window).scrollTop();
+            var sl = $(window).scrollLeft();
+
+            var offX = parseInt(params.offsets.x, 10) || 0;
+            var offY = parseInt(params.offsets.y, 10) || 0;
+
+            var winWidth = $(window).width();
+            var winHeight = $(window).height();
+
+            var position = params.position;
+            if (typeof position != 'string' && position.length == 2) {
+                var left = position[0] + offX;
+                var top = position[1] + offY;
+                if (params.edgeAdjust == true) {
+                    if (left + tarW > winWidth + sl - 5) {
+                        left = winWidth + sl - 5 - tarW;
+                    }
+                    if (top + tarH > winHeight + st - 5) {
+                        top = winHeight + st - 5 - tarH;
+                    }
+                }
+                //浮动框显示
+                target.css({
+                    position: 'absolute',
+                    left: left,
+                    top: top
+                }).attr('data-align', '3-1');
+
+                // z-index自动最高
+                if (target.zIndex) {
+                    target.zIndex();
+                }
+                return;
             }
 
             pos = trigger.offset();
@@ -290,10 +319,10 @@
                 }
                 case 'left': {
                     tarL = triL - tarW;
-                    if (strFirst == '2') {
+                    if (strFirst == '1') {
                         tarT = triT;
-                    } else if (strFirst === '6') {
-                        tarT = triT - (tarW - triW) / 2;
+                    } else if (strFirst === '8') {
+                        tarT = triT - (tarH - triH) / 2;
                     } else {
                         tarT = triT - (tarH - triH);
                     }
@@ -301,10 +330,7 @@
                 }
             }
 
-
             if (params.edgeAdjust && funCenterJudge(align)) {
-                var winWidth = $(window).width();
-                var winHeight = $(window).height();
                 // 是居中定位
                 // 变更的不是方向，而是offset大小
                 // 偏移处理
